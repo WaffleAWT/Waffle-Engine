@@ -2,6 +2,7 @@
 /// Handles 3D scene setup, management, and rendering
 
 use bevy::core_pipeline::bloom::{BloomCompositeMode, BloomPrefilterSettings, BloomSettings};
+use bevy::core_pipeline::prepass::{DeferredPrepass, DepthPrepass, NormalPrepass};
 use bevy::core_pipeline::tonemapping::Tonemapping;
 use bevy::prelude::*;
 use bevy::pbr::{
@@ -149,8 +150,6 @@ pub fn setup_3d_scene(
         ..default()
     });
 
-    commands.insert_resource(DefaultOpaqueRendererMethod::deferred());
-
     // Store scene settings
     commands.insert_resource(SceneSettings {
         ambient_light_color: Color::srgb(1.0, 1.0, 1.0),
@@ -263,6 +262,8 @@ pub fn apply_environment_settings(
     env_query: Query<&EnvironmentSettings, Or<(Added<EnvironmentSettings>, Changed<EnvironmentSettings>)>>,
     camera_query: Query<Entity, With<WaffleMainCamera>>,
     mut ambient_light: ResMut<AmbientLight>,
+    mut default_opaque_method: ResMut<DefaultOpaqueRendererMethod>,
+    mut msaa: ResMut<Msaa>,
 ) {
     let Ok(camera_entity) = camera_query.get_single() else {
         return;
@@ -363,6 +364,8 @@ pub fn apply_environment_settings(
     }
 
     if env.ssr.enabled {
+        default_opaque_method.set_to_deferred();
+        *msaa = Msaa::Off;
         commands.entity(camera_entity).insert(ScreenSpaceReflectionsSettings {
             perceptual_roughness_threshold: env.ssr.roughness_threshold,
             thickness: env.ssr.thickness,
@@ -371,10 +374,18 @@ pub fn apply_environment_settings(
             bisection_steps: env.ssr.bisection_steps,
             use_secant: env.ssr.use_secant,
         });
+        commands.entity(camera_entity).insert(DepthPrepass);
+        commands.entity(camera_entity).insert(NormalPrepass);
+        commands.entity(camera_entity).insert(DeferredPrepass);
     } else {
+        default_opaque_method.set_to_forward();
         commands
             .entity(camera_entity)
             .remove::<ScreenSpaceReflectionsSettings>();
+        *msaa = Msaa::default();
+        commands.entity(camera_entity).remove::<DepthPrepass>();
+        commands.entity(camera_entity).remove::<NormalPrepass>();
+        commands.entity(camera_entity).remove::<DeferredPrepass>();
     }
 
     ambient_light.color = env.ambient_color;
@@ -414,8 +425,8 @@ pub fn update_sky_dome(
 }
 
 pub fn sync_sky_dome_to_camera(
-    camera_query: Query<&Transform, With<WaffleMainCamera>>,
-    mut sky_query: Query<&mut Transform, With<WaffleSkyDome>>,
+    camera_query: Query<&Transform, (With<WaffleMainCamera>, Without<WaffleSkyDome>)>,
+    mut sky_query: Query<&mut Transform, (With<WaffleSkyDome>, Without<WaffleMainCamera>)>,
 ) {
     let Ok(camera_transform) = camera_query.get_single() else {
         return;

@@ -6,7 +6,80 @@ Built in Rust with Lua scripting planned.
 
 Status: active development.
 
-## Examples Coverage
+---
+
+## Visual Coverage Dashboard (renders on GitHub)
+
+```mermaid
+pie title Examples Coverage (n=363)
+  "DONE ✅ (6)" : 6
+  "WIP 🚧 (7)" : 7
+  "UPCOMING ⏳ (350)" : 350
+```
+
+```mermaid
+flowchart TB
+  WE([Waffle Engine])
+
+  WE --> R[Rendering]
+  WE --> A[Assets]
+  WE --> P[Picking]
+  WE --> G[Gizmos / Tools]
+  WE --> U[UI]
+  WE --> E[ECS]
+  WE --> N[Animation]
+  WE --> S[Shaders]
+  WE --> I[Input]
+  WE --> W[Windowing]
+  WE --> T[Async / Tasks]
+  WE --> AU[Audio]
+  WE --> M[Math / Helpers / Misc]
+
+  %% Rendering highlights (from your current status list)
+  R --> R_DONE1["Bloom 3D ✅"]
+  R --> R_DONE2["Fog ✅"]
+  R --> R_DONE3["Lighting ✅"]
+  R --> R_DONE4["Load GLTF ✅"]
+  R --> R_DONE5["PBR ✅"]
+  R --> R_DONE6["Tonemapping ✅"]
+  R --> R_WIP1["Atmosphere 🚧"]
+  R --> R_WIP2["SSAO 🚧"]
+  R --> R_WIP3["SSR 🚧"]
+  R --> R_UP1["(lots) 2D + 3D features ⏳"]
+
+  %% Other active / notable WIP
+  A --> A_WIP1["Asset Loading 🚧"]
+  G --> G_WIP1["3D Gizmos 🚧"]
+  G --> G_WIP2["Axes 🚧"]
+  P --> P_WIP1["Mesh Picking 🚧"]
+
+  %% Big upcoming areas
+  U --> U_UP["UI system ⏳"]
+  E --> E_UP["ECS features ⏳"]
+  N --> N_UP["Animation features ⏳"]
+  S --> S_UP["Shader features ⏳"]
+  I --> I_UP["Keyboard/Mouse/Gamepad/Touch ⏳"]
+  W --> W_UP["Multi-window / resize / screenshot ⏳"]
+  AU --> AU_UP["Audio + Spatial Audio ⏳"]
+  T --> T_UP["Async compute / external threads ⏳"]
+  M --> M_UP["Math, helpers, app, diagnostics, etc. ⏳"]
+
+  classDef done fill:#1b5e20,color:#fff,stroke:#0b2e10,stroke-width:2px;
+  classDef wip fill:#e65100,color:#fff,stroke:#7a2a00,stroke-width:2px;
+  classDef upcoming fill:#263238,color:#fff,stroke:#111,stroke-width:1.5px;
+
+  class R_DONE1,R_DONE2,R_DONE3,R_DONE4,R_DONE5,R_DONE6 done;
+  class R_WIP1,R_WIP2,R_WIP3,A_WIP1,G_WIP1,G_WIP2,P_WIP1 wip;
+  class R_UP1,U_UP,E_UP,N_UP,S_UP,I_UP,W_UP,AU_UP,T_UP,M_UP upcoming;
+```
+
+---
+
+## Examples Coverage (Full List)
+
+<details>
+<summary><b>Click to expand</b></summary>
+
 Status key: `DONE`, `WIP`, `UPCOMING`.
 
 1. [UPCOMING] 2d/2d shapes (2d/2d_shapes.rs)
@@ -372,3 +445,5 @@ Status key: `DONE`, `WIP`, `UPCOMING`.
 1. [UPCOMING] window/Window drag move (window/window_drag_move.rs)
 1. [UPCOMING] window/Window resizing (window/window_resizing.rs)
 1. [UPCOMING] window/Window settings (window/window_settings.rs)
+
+</details>
