@@ -1,0 +1,58 @@
+[package]
+name = "waffle_engine"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Core Bevy framework
+bevy = { version = "0.14", features = ["dynamic_linking"] }
+
+# Lua scripting (temporarily disabled for testing)
+# mlua = { version = "0.11", features = ["luajit", "serialize", "send"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+ron = "0.8"
+
+# File system and assets
+walkdir = "2.4"
+image = "0.24"
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Editor UI
+egui = "0.28"
+egui_extras = "0.28"
+egui_dock = { version = "0.13", features = ["serde"] }
+bevy_egui = "0.28"
+
+# 3D and graphics
+glam = "0.24"
+bevy_gltf = "0.14"
+bevy_obj = "0.14"
+
+# Audio
+bevy_kira_audio = "0.19"
+
+# Physics
+bevy_rapier3d = "0.26"
+
+# Additional utilities
+uuid = { version = "1.4", features = ["v4", "serde"] }
+log = "0.4"
+env_logger = "0.10"
+rayon = "1.8"
+crossbeam-channel = "0.5"
+parking_lot = "0.12"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
