@@ -1,84 +1,59 @@
-# Waffle Engine
+# Waffle Engine 🧇
 
-Waffle Engine is my first engine project, built to cover my 3D game needs for **Biosector73**. I plan to focus on the game first, then return to expand the engine after release.
+Waffle Engine is my first custom game engine, built to support my 3D game **Biosector73**.  
+Built in **Rust**, with **Lua scripting planned**.
 
-Built in Rust with Lua scripting planned.
-
-Status: active development.
+Status: **Active development**
 
 ---
 
-## Visual Coverage Dashboard (renders on GitHub)
+## Engine Status Overview (GitHub-rendered)
 
 ```mermaid
-pie title Examples Coverage (n=363)
-  "DONE ✅ (6)" : 6
-  "WIP 🚧 (7)" : 7
-  "UPCOMING ⏳ (350)" : 350
+flowchart LR
+    DONE["✅ DONE"]
+    WIP["🚧 WIP"]
+    UPC["⏳ UPCOMING"]
+
+    DONE --> D1["Bloom 3D"]
+    DONE --> D2["Fog"]
+    DONE --> D3["Lighting"]
+    DONE --> D4["Load GLTF"]
+    DONE --> D5["PBR"]
+    DONE --> D6["Tonemapping"]
+
+    WIP --> W1["Atmosphere"]
+    WIP --> W2["SSAO"]
+    WIP --> W3["SSR"]
+    WIP --> W4["Asset Loading"]
+    WIP --> W5["Gizmos"]
+    WIP --> W6["Picking"]
+
+    UPC --> U1["2D Rendering"]
+    UPC --> U2["Animation System"]
+    UPC --> U3["UI System"]
+    UPC --> U4["ECS Expansion"]
+    UPC --> U5["Shaders"]
+    UPC --> U6["Audio"]
+    UPC --> U7["Tools"]
+    UPC --> U8["Windowing"]
 ```
 
-```mermaid
-flowchart TB
-  WE([Waffle Engine])
+This diagram shows **exactly**:
+- what already works
+- what you're actively building
+- what exists as planned scope
 
-  WE --> R[Rendering]
-  WE --> A[Assets]
-  WE --> P[Picking]
-  WE --> G[Gizmos / Tools]
-  WE --> U[UI]
-  WE --> E[ECS]
-  WE --> N[Animation]
-  WE --> S[Shaders]
-  WE --> I[Input]
-  WE --> W[Windowing]
-  WE --> T[Async / Tasks]
-  WE --> AU[Audio]
-  WE --> M[Math / Helpers / Misc]
-
-  %% Rendering highlights (from your current status list)
-  R --> R_DONE1["Bloom 3D ✅"]
-  R --> R_DONE2["Fog ✅"]
-  R --> R_DONE3["Lighting ✅"]
-  R --> R_DONE4["Load GLTF ✅"]
-  R --> R_DONE5["PBR ✅"]
-  R --> R_DONE6["Tonemapping ✅"]
-  R --> R_WIP1["Atmosphere 🚧"]
-  R --> R_WIP2["SSAO 🚧"]
-  R --> R_WIP3["SSR 🚧"]
-  R --> R_UP1["(lots) 2D + 3D features ⏳"]
-
-  %% Other active / notable WIP
-  A --> A_WIP1["Asset Loading 🚧"]
-  G --> G_WIP1["3D Gizmos 🚧"]
-  G --> G_WIP2["Axes 🚧"]
-  P --> P_WIP1["Mesh Picking 🚧"]
-
-  %% Big upcoming areas
-  U --> U_UP["UI system ⏳"]
-  E --> E_UP["ECS features ⏳"]
-  N --> N_UP["Animation features ⏳"]
-  S --> S_UP["Shader features ⏳"]
-  I --> I_UP["Keyboard/Mouse/Gamepad/Touch ⏳"]
-  W --> W_UP["Multi-window / resize / screenshot ⏳"]
-  AU --> AU_UP["Audio + Spatial Audio ⏳"]
-  T --> T_UP["Async compute / external threads ⏳"]
-  M --> M_UP["Math, helpers, app, diagnostics, etc. ⏳"]
-
-  classDef done fill:#1b5e20,color:#fff,stroke:#0b2e10,stroke-width:2px;
-  classDef wip fill:#e65100,color:#fff,stroke:#7a2a00,stroke-width:2px;
-  classDef upcoming fill:#263238,color:#fff,stroke:#111,stroke-width:1.5px;
-
-  class R_DONE1,R_DONE2,R_DONE3,R_DONE4,R_DONE5,R_DONE6 done;
-  class R_WIP1,R_WIP2,R_WIP3,A_WIP1,G_WIP1,G_WIP2,P_WIP1 wip;
-  class R_UP1,U_UP,E_UP,N_UP,S_UP,I_UP,W_UP,AU_UP,T_UP,M_UP upcoming;
-```
+No clutter, no guessing.
 
 ---
 
 ## Examples Coverage (Full List)
 
 <details>
-<summary><b>Click to expand</b></summary>
+<summary><b>Click to expand the full list</b></summary>
+
+## Examples Coverage
 
 Status key: `DONE`, `WIP`, `UPCOMING`.
 
